@@ -1,8 +1,11 @@
-package com.example.polisapp.ui.course
+package com.example.polisapp.uilogic.course
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +14,6 @@ import com.example.polisapp.R
 import com.example.polisapp.api.CourseAPI
 import com.example.polisapp.model.CourseDTO
 import com.example.polisapp.uicomponents.SearchBarView
-import com.example.polisapp.uilogic.course.CourseAdapter
 import com.example.polisapp.util.ApiClient
 import kotlinx.coroutines.launch
 
@@ -43,8 +45,14 @@ class CourseActivity : AppCompatActivity() {
         adapter = CourseAdapter(mutableListOf())
         recyclerView.adapter = adapter
 
-        fetchCourses()
+        // 🔹 ADD COURSE BUTTON
+        findViewById<Button>(R.id.btnAddCourse).setOnClickListener {
+            val intent = Intent(this, AddCourseActivity::class.java)
+            startActivity(intent)
+        }
 
+        setupDeleteHandler()
+        fetchCourses()
         setupPaginationScrollListener()
         setupSearchListener()
     }
@@ -96,6 +104,27 @@ class CourseActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupDeleteHandler() {
+        adapter.onDeleteClick = { course ->
+            AlertDialog.Builder(this)
+                .setTitle("Delete Course")
+                .setMessage("Are you sure you want to delete '${course.name}'?")
+                .setPositiveButton("Yes") { _, _ ->
+                    lifecycleScope.launch {
+                        try {
+                            courseApi.deleteCourse(course.id)
+                            Toast.makeText(this@CourseActivity, "Course deleted", Toast.LENGTH_SHORT).show()
+                            fetchCourses()
+                        } catch (e: Exception) {
+                            Toast.makeText(this@CourseActivity, "Delete failed", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
+        }
+    }
+
     private fun resetPagination() {
         currentPage = 0
         isLoading = false
@@ -112,5 +141,10 @@ class CourseActivity : AppCompatActivity() {
             currentPage++
             isLoading = false
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchCourses()
     }
 }

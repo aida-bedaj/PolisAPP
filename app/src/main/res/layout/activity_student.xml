@@ -7,11 +7,11 @@
     <com.example.polisapp.uicomponents.SearchBarView
         android:id="@+id/searchBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="53dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerStudents"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 </LinearLayout>

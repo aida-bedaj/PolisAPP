@@ -3,6 +3,7 @@ package com.example.polisapp.uilogic.student
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,6 +41,7 @@ class StudentActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         studentApi = ApiClient.retrofit.create(StudentAPI::class.java)
 
+        setupDeleteHandler()
         fetchStudents()
         setupScroll()
         setupSearch()
@@ -50,11 +52,16 @@ class StudentActivity : AppCompatActivity() {
             try {
                 fullList = studentApi.getAllStudents()
                 filteredList = fullList
+
+                if (fullList.isEmpty()) {
+                    Toast.makeText(this@StudentActivity, getString(R.string.no_students), Toast.LENGTH_SHORT).show()
+                }
+
                 resetPagination()
                 loadNextPage()
             } catch (e: Exception) {
                 Log.e("API_ERROR", e.toString())
-                Toast.makeText(this@StudentActivity, "Failed to load students", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@StudentActivity, getString(R.string.error_message), Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -89,6 +96,27 @@ class StudentActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupDeleteHandler() {
+        adapter.onDeleteClick = { student ->
+            AlertDialog.Builder(this)
+                .setTitle(getString(R.string.delete_student))
+                .setMessage("Are you sure you want to delete '${student.name}'?")
+                .setPositiveButton("Yes") { _, _ ->
+                    lifecycleScope.launch {
+                        try {
+                            studentApi.deleteStudent(student.id)
+                            Toast.makeText(this@StudentActivity, getString(R.string.student_deleted), Toast.LENGTH_SHORT).show()
+                            fetchStudents()
+                        } catch (e: Exception) {
+                            Toast.makeText(this@StudentActivity, getString(R.string.error_message), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
+        }
+    }
+
     private fun resetPagination() {
         currentPage = 0
         isLoading = false
@@ -104,5 +132,10 @@ class StudentActivity : AppCompatActivity() {
             currentPage++
             isLoading = false
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchStudents()
     }
 }

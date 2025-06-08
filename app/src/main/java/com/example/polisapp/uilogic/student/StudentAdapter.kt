@@ -3,13 +3,16 @@ package com.example.polisapp.uilogic.student
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.polisapp.R
 import com.example.polisapp.model.StudentDTO
 
 class StudentAdapter(private var students: MutableList<StudentDTO>) :
-    RecyclerView.Adapter<StudentAdapter.ViewHolder>() {
+    RecyclerView.Adapter<StudentAdapter.ViewHolder>() { //Constructor
+
+        var onDeleteClick: ((StudentDTO) -> Unit)? = null
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.textStudentName)
@@ -26,6 +29,11 @@ class StudentAdapter(private var students: MutableList<StudentDTO>) :
         val student = students[position]
         holder.name.text = student.name
         holder.email.text = student.email
+
+        val deleteButton = holder.itemView.findViewById<Button>(R.id.btnDeleteStudent)
+        deleteButton.setOnClickListener {
+            onDeleteClick?.invoke(student)
+        }
     }
 
     override fun getItemCount(): Int = students.size

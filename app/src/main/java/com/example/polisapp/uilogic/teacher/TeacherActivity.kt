@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -38,8 +39,9 @@ class TeacherActivity : AppCompatActivity() {
 
         adapter = TeacherAdapter(mutableListOf())
         recyclerView.adapter = adapter
-        teacherApi = ApiClient.retrofit.create(TeacherApi::class.java)
+        teacherApi = ApiClient.retrofit.create(TeacherAPI::class.java)
 
+        setupDeleteHandler()
         fetchTeachers()
         setupScroll()
         setupSearch()
@@ -88,6 +90,27 @@ class TeacherActivity : AppCompatActivity() {
             }
         }
     }
+    private fun setupDeleteHandler() {
+        adapter.onDeleteClick = { teacher ->
+            AlertDialog.Builder(this)
+                .setTitle("Delete Teacher")
+                .setMessage("Are you sure you want to delete '${teacher.name}'?")
+                .setPositiveButton("Yes") { _, _ ->
+                    lifecycleScope.launch {
+                        try {
+                            teacherApi.deleteTeacher(teacher.id)
+                            Toast.makeText(this@TeacherActivity, "Teacher deleted", Toast.LENGTH_SHORT).show()
+                            fetchTeachers()
+                        } catch (e: Exception) {
+                            Toast.makeText(this@TeacherActivity, "Delete failed", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
+        }
+    }
+
 
     private fun resetPagination() {
         currentPage = 0
@@ -104,5 +127,9 @@ class TeacherActivity : AppCompatActivity() {
             currentPage++
             isLoading = false
         }
+    }
+    override fun onResume() {
+        super.onResume()
+        fetchTeachers()
     }
 }

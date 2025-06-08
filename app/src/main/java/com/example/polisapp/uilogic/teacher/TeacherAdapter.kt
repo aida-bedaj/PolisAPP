@@ -3,6 +3,7 @@ package com.example.polisapp.uilogic.teacher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.polisapp.R
@@ -10,6 +11,8 @@ import com.example.polisapp.model.TeacherDTO
 
 class TeacherAdapter(private var teachers: MutableList<TeacherDTO>) :
     RecyclerView.Adapter<TeacherAdapter.ViewHolder>() {
+
+        var onDeleteClick: ((TeacherDTO) -> Unit)? = null
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.textTeacherName)
@@ -26,6 +29,11 @@ class TeacherAdapter(private var teachers: MutableList<TeacherDTO>) :
         val teacher = teachers[position]
         holder.name.text = teacher.name
         holder.department.text = teacher.department
+
+        val deleteButton = holder.itemView.findViewById<Button>(R.id.btnDeleteTeacher)
+        deleteButton.setOnClickListener {
+            onDeleteClick?.invoke(teacher)
+        }
     }
 
     override fun getItemCount(): Int = teachers.size

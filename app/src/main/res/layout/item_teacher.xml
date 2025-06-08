@@ -13,7 +13,7 @@
 
         <TextView
             android:id="@+id/textTeacherName"
-            android:text="Teacher Name"
+            android:text="@string/teacher_name"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_width="wrap_content"
@@ -21,8 +21,16 @@
 
         <TextView
             android:id="@+id/textTeacherDept"
-            android:text="Department"
+            android:text="@string/department"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnDeleteTeacher"
+            android:text="@string/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">PolisAPP</string>
+    <string name="add_course">Add Course</string>
+    <string name="course_name">Course Name</string>
+    <string name="course_description">Course Description</string>
+    <string name="delete">Delete</string>
+    <string name="department">Department</string>
+    <string name="teacher_name">Teacher Name</string>
+    <string name="student_name">Student Name</string>
+    <string name="email">Student Email</string>
+    <string name="add_student">Add Student</string>
+    <string name="add_teacher">Add Teacher</string>
+    <string name="add">Add</string>
+    <string name="delete_course">Delete Course</string>
+    <string name="delete_student">Delete Student</string>
+    <string name="delete_teacher">Delete Teacher</string>
+    <string name="course_list">Course List</string>
+    <string name="student_list">Student List</string>
+    <string name="teacher_list">Teacher List</string>
+    <string name="no_courses">No courses available</string>
+    <string name="no_students">No students available</string>
+    <string name="no_teachers">No teachers available</string>
+    <string name="course_added">Course added successfully</string>
+    <string name="student_added">Student added successfully</string>
+    <string name="teacher_added">Teacher added successfully</string>
+    <string name="course_deleted">Course deleted successfully</string>
+    <string name="student_deleted">Student deleted successfully</string>
+    <string name="teacher_deleted">Teacher deleted successfully</string>
+    <string name="error">Error</string>
+    <string name="error_message">An error occurred. Please try again.</string>
+    <string name="loading">Loading…</string>
+    <string name="manage_teachers">Manage Teachers</string>
+    <string name="manage_students">Manage Students</string>
+    <string name="manage_courses">Manage Courses</string>
+
 </resources>
