@@ -45,7 +45,7 @@ class AddCourseActivity : AppCompatActivity() {
                 try {
                     courseApi.createCourse(course)
                     runOnUiThread {
-                        Toast.makeText(this@AddCourseActivity, "Course added!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@AddCourseActivity, getString(R.string.course_added), Toast.LENGTH_SHORT).show()
                         finish() // return to previous activity
                     }
                 } catch (e: Exception) {

@@ -62,14 +62,20 @@ class CourseActivity : AppCompatActivity() {
             try {
                 fullCourseList = courseApi.getAllCourses()
                 filteredCourseList = fullCourseList
+
+                if (fullCourseList.isEmpty()) {
+                    Toast.makeText(this@CourseActivity, getString(R.string.no_courses), Toast.LENGTH_SHORT).show()
+                }
+
                 resetPagination()
                 loadNextPage()
             } catch (e: Exception) {
                 Log.e("API_ERROR", e.toString())
-                Toast.makeText(this@CourseActivity, "Failed to load courses", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@CourseActivity, getString(R.string.error_message), Toast.LENGTH_LONG).show()
             }
         }
     }
+
 
     private fun setupPaginationScrollListener() {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -113,7 +119,7 @@ class CourseActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         try {
                             courseApi.deleteCourse(course.id)
-                            Toast.makeText(this@CourseActivity, "Course deleted", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@CourseActivity, getString(R.string.course_deleted), Toast.LENGTH_SHORT).show()
                             fetchCourses()
                         } catch (e: Exception) {
                             Toast.makeText(this@CourseActivity, "Delete failed", Toast.LENGTH_SHORT).show()

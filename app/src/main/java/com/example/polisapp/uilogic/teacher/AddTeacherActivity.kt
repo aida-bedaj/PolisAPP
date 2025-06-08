@@ -45,7 +45,7 @@ class AddTeacherActivity : AppCompatActivity() {
                 try {
                     teacherApi.createTeacher(teacher)
                     runOnUiThread {
-                        Toast.makeText(this@AddTeacherActivity, "Teacher added!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@AddTeacherActivity, getString(R.string.teacher_added), Toast.LENGTH_SHORT).show()
                         finish()
                     }
                 } catch (e: Exception) {

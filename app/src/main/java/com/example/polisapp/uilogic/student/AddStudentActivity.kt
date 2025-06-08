@@ -45,7 +45,7 @@ class AddStudentActivity : AppCompatActivity() {
                 try {
                     studentApi.createStudent(student)
                     runOnUiThread {
-                        Toast.makeText(this@AddStudentActivity, "Student added!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@AddStudentActivity, getString(R.string.student_added), Toast.LENGTH_SHORT).show()
                         finish()
                     }
                 } catch (e: Exception) {

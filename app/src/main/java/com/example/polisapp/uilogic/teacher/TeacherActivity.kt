@@ -58,6 +58,9 @@ class TeacherActivity : AppCompatActivity() {
                 Log.e("API_ERROR", e.toString())
                 Toast.makeText(this@TeacherActivity, "Failed to load teachers", Toast.LENGTH_LONG).show()
             }
+            if (fullList.isEmpty()) {
+                Toast.makeText(this@TeacherActivity, getString(R.string.no_teachers), Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -99,7 +102,7 @@ class TeacherActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         try {
                             teacherApi.deleteTeacher(teacher.id)
-                            Toast.makeText(this@TeacherActivity, "Teacher deleted", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@TeacherActivity, getString(R.string.teacher_deleted), Toast.LENGTH_SHORT).show()
                             fetchTeachers()
                         } catch (e: Exception) {
                             Toast.makeText(this@TeacherActivity, "Delete failed", Toast.LENGTH_SHORT).show()
