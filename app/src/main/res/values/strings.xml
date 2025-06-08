@@ -32,5 +32,9 @@
     <string name="manage_teachers">Manage Teachers</string>
     <string name="manage_students">Manage Students</string>
     <string name="manage_courses">Manage Courses</string>
+    <string name="polis_logo">Polis University Logo</string>
+    <string name="polis_tagline">Empowering Innovation Through Knowledge</string>
+
+
 
 </resources>

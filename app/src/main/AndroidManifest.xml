@@ -13,17 +13,22 @@
         android:theme="@style/Theme.PolisAPP"
         tools:targetApi="31">
 
-        <!-- Main launcher menu -->
+        <!-- Splash screen launcher -->
         <activity
-            android:name=".MainMenuActivity"
+            android:name=".SplashActivity"
+            android:theme="@style/Theme.PolisAPP.Splash"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <!-- Main menu activity -->
+        <activity
+            android:name=".MainMenuActivity"
+            android:theme="@style/Theme.PolisAPP"
+            android:exported="true" />
 
         <!-- Other declared activities -->
         <activity
@@ -31,7 +36,6 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.PolisAPP" />
-
         <activity android:name=".uilogic.course.CourseActivity" />
         <activity android:name=".uilogic.course.AddCourseActivity" />
         <activity android:name=".uilogic.student.StudentActivity" />

@@ -1,4 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="Theme.PolisAPP" parent="android:Theme.Material.Light.NoActionBar" />
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Normal app theme -->
+    <style name="Theme.PolisAPP" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your app theme here -->
+        <item name="colorPrimary">#7AC943</item> <!-- green -->
+        <item name="colorPrimaryVariant">#5FA833</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <item name="colorSecondary">#C7C1BF</item> <!-- gray -->
+        <item name="colorOnSecondary">#000000</item>
+
+        <item name="android:colorBackground">#FFFFFF</item>
+        <item name="colorSurface">#FFFFFF</item>
+        <item name="colorOnSurface">#333333</item>
+
+        <item name="android:windowBackground">#FFFFFF</item>
+        <item name="android:textColor">#333333</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <!-- Splash screen theme -->
+    <style name="Theme.PolisAPP.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 </resources>
